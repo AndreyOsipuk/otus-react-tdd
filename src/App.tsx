@@ -1,24 +1,25 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
+import logo from "./logo.svg";
+import "./App.css";
 
 function App() {
+  const [value, setValue] = useState("");
+  const [items, setItems] = useState<string[]>([]);
+
+  const handleClick = () => {
+    setItems([...items, value]);
+    setValue("");
+  };
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <input data-testid="input" value={value} onChange={(e) => setValue(e.target.value)} />
+      <button hidden={!value} data-testid="button" onClick={handleClick} style={{ backgroundColor: 'red'}}>
+        click
+      </button>
+      {items.map((item) => (
+        <p data-testid="list-item">{item}</p>
+      ))}
     </div>
   );
 }
