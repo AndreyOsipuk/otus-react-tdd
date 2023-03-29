@@ -1,18 +1,17 @@
-import React from 'react';
-import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import App from './App';
-import userEvent from "@testing-library/user-event";
+import userEvent from '@testing-library/user-event';
 
-import "@testing-library/jest-dom";
+import '@testing-library/jest-dom';
 
 describe('App', () => {
-  let input: HTMLInputElement
-  let button: HTMLButtonElement
+  let input: HTMLInputElement;
+  let button: HTMLButtonElement;
   beforeEach(() => {
     render(<App />);
     input = screen.getByTestId('input');
     button = screen.getByTestId('button');
-  })
+  });
 
   it('renders marksup', () => {
     expect(input).toBeInTheDocument();
@@ -21,32 +20,34 @@ describe('App', () => {
   });
 
   it('button is hidden if not value', async () => {
-    expect(button).not.toBeVisible()
-    await userEvent.type(input, 'text')
-    expect(button).toBeVisible()
-    await userEvent.clear(input)
-    expect(button).not.toBeVisible()
-  })
+    expect(button).not.toBeVisible();
+    await userEvent.type(input, 'text');
+    expect(button).toBeVisible();
+    await userEvent.clear(input);
+    expect(button).not.toBeVisible();
+  });
 
   it('text in paragraph after click button', async () => {
-    await userEvent.type(input, 'new text')
-    await userEvent.click(button)
-    expect(screen.getAllByTestId('list-item').length).toBe(1)
-    expect(input.value).toBe('')
-  })
+    await userEvent.type(input, 'new text');
+    await userEvent.click(button);
+    expect(screen.getAllByTestId('list-item').length).toBe(1);
+    expect(input.value).toBe('');
+  });
 
   it('render multiply elements', () => {
-    render(<>
-      <App />
-      <App />
-    </>)
+    render(
+      <>
+        <App />
+        <App />
+      </>
+    );
 
-    expect(screen.getAllByTestId('input').length).toBe(3)
-  })
+    expect(screen.getAllByTestId('input').length).toBe(3);
+  });
 
   it('button have background color', () => {
-    expect(button).toHaveStyle({ backgroundColor: 'red' })
-  })
+    expect(button).toHaveStyle({ backgroundColor: 'red' });
+  });
 
   // it('button with userEvent', async () => {
   //   const onChangeMock = jest.fn()
@@ -72,5 +73,4 @@ describe('App', () => {
   //   expect(mockFunc).toHaveBeenCalledTimes(2)
   //   expect(checkbox).not.toBeChecked()
   // })
-})
-
+});
