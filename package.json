@@ -2,6 +2,7 @@
   "name": "react-tdd",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://github.com/AndreyOsipuk/otus-react-tdd",
   "dependencies": {
     "@babel/core": "^7.16.0",
     "@pmmmwh/react-refresh-webpack-plugin": "^0.5.3",
@@ -67,7 +68,11 @@
     "start": "node scripts/start.js",
     "build": "node scripts/build.js",
     "test": "jest",
-    "lint": "npx tsc --noEmit && npx eslint ./src --ext .js,.jsx,.ts,.tsx"
+    "lint": "npx tsc --noEmit && npx eslint ./src --ext .js,.jsx,.ts,.tsx",
+    "test:coverage": "jest --coverage --colors",
+    "deploy:web": "npm run build && gh-pages -d build",
+    "deploy:storybook": "npm run build-storybook && gh-pages -d storybook-static",
+    "deploy:coverage": "npm run test:coverage && gh-pages -d coverage/lcov-report"
   },
   "eslintConfig": {
     "extends": [
@@ -151,6 +156,7 @@
     "eslint-plugin-react": "^7.32.2",
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-storybook": "^0.6.11",
+    "gh-pages": "^5.0.0",
     "husky": "^8.0.3",
     "prettier": "^2.8.7"
   }
